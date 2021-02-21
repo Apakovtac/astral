@@ -1,0 +1,5 @@
+[package]
+name = "astral"
+version = "0.0.0"
+authors = ["Alexander McCord <alex@mccord.dev>"]
+edition = "2018"
