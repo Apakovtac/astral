@@ -3,3 +3,17 @@
 [[package]]
 name = "astral"
 version = "0.0.0"
+dependencies = [
+ "libastral",
+]
+
+[[package]]
+name = "libastral"
+version = "0.0.0"
+
+[[package]]
+name = "test_suite"
+version = "0.0.0"
+dependencies = [
+ "libastral",
+]
