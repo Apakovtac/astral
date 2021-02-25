@@ -1,9 +1,4 @@
-use libastral::lexer::{
-    Lexer,
-    Token,
-    TokenKind::*,
-    tokenize
-};
+use libastral::lexer::{tokenize, Lexer, Token, TokenKind::*};
 
 #[test]
 fn tokenize_empty_input() {
@@ -14,7 +9,7 @@ fn tokenize_empty_input() {
 #[test]
 fn tokenize_whitespace_input() {
     let expected = vec![Token::new(Whitespace), Token::new(Whitespace)];
-    assert_eq!(tokenize(" \t"), expected)
+    assert_eq!(tokenize(" \t"), expected);
 }
 
 #[test]
