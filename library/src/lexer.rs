@@ -42,13 +42,6 @@ impl<'a> Lexer<'a> {
         self.cursor.next();
         Token::new(Whitespace)
     }
-
-    #[allow(dead_code)] // Will eventually be used.
-    fn eat_while(&mut self, mut f: impl FnMut(char) -> bool) {
-        while f(self.cursor.first()) && !self.cursor.is_eof() {
-            self.cursor.next();
-        }
-    }
 }
 
 impl<'a> Iterator for Lexer<'a> {

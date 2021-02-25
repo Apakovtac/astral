@@ -30,4 +30,11 @@ impl<'a> Cursor<'a> {
     fn chars(&self) -> Chars<'a> {
         self.chars.clone()
     }
+
+    #[allow(dead_code)] // Will eventually be used.
+    fn eat_while(&mut self, mut f: impl FnMut(char) -> bool) {
+        while f(self.first()) && !self.is_eof() {
+            self.next();
+        }
+    }
 }
