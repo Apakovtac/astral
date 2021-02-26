@@ -34,7 +34,7 @@ impl<'a> Lexer<'a> {
 
     fn next_token(&mut self) -> Token {
         match self.cursor.first() {
-            c if is_whitespace(c) => self.eat_whitespace(),
+            ' ' | '\t' => self.eat_whitespace(),
             c => self.eat_unknown_char(c),
         }
     }
@@ -64,8 +64,4 @@ impl<'a> Iterator for Lexer<'a> {
 
 pub fn tokenize(input: &str) -> Vec<Token> {
     Lexer::new(input).collect()
-}
-
-fn is_whitespace(c: char) -> bool {
-    matches!(c, ' ' | '\t')
 }
