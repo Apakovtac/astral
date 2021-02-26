@@ -17,3 +17,14 @@ fn tokenize_unknown_input() {
     let expected = vec![Token::new(Unknown { char: '@' }, 1)];
     assert_eq!(tokenize("@"), expected);
 }
+
+#[test]
+fn tokenize_some_identifiers() {
+    let expected = vec![
+        Token::new(Ident, 1),
+        Token::new(Whitespace, 2),
+        Token::new(Ident, 4),
+    ];
+
+    assert_eq!(tokenize("a a'"), expected);
+}

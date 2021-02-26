@@ -36,4 +36,11 @@ impl<'a> Cursor<'a> {
     pub(crate) fn next(&mut self) {
         self.chars.next();
     }
+
+    pub(crate) fn next_while(&mut self, mut pred: impl FnMut(char) -> bool) {
+        while pred(self.first()) && !self.is_eof() {
+            self.next();
+        }
+    }
+
 }
