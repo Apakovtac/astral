@@ -18,7 +18,7 @@ pub enum TokenKind {
     Whitespace,
     Eof,
 
-    Unknown,
+    Unknown { char: char },
 }
 
 pub struct Lexer<'a> {
@@ -32,16 +32,21 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    fn next_token(&mut self) -> Option<Token> {
+    fn next_token(&mut self) -> Token {
         match self.cursor.first() {
-            c if is_whitespace(c) => Some(self.eat_whitespace()),
-            _ => None,
+            c if is_whitespace(c) => self.eat_whitespace(),
+            c => self.eat_unknown_char(c),
         }
     }
 
     fn eat_whitespace(&mut self) -> Token {
         self.cursor.next();
         Token::new(Whitespace, self.cursor.len_consumed())
+    }
+
+    fn eat_unknown_char(&mut self, char: char) -> Token {
+        self.cursor.next();
+        Token::new(Unknown { char }, self.cursor.len_consumed())
     }
 }
 
@@ -53,7 +58,7 @@ impl<'a> Iterator for Lexer<'a> {
             return None;
         }
 
-        self.next_token()
+        Some(self.next_token())
     }
 }
 
