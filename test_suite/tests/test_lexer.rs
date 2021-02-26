@@ -1,4 +1,4 @@
-use libastral::lexer::{tokenize, Lexer, Token, TokenKind::*};
+use libastral::lexer::{tokenize, Token, TokenKind::*};
 
 #[test]
 fn tokenize_empty_input() {
@@ -8,15 +8,6 @@ fn tokenize_empty_input() {
 
 #[test]
 fn tokenize_whitespace_input() {
-    let expected = vec![Token::new(Whitespace), Token::new(Whitespace)];
+    let expected = vec![Token::new(Whitespace, 1), Token::new(Whitespace, 2)];
     assert_eq!(tokenize(" \t"), expected);
-}
-
-#[test]
-fn lexer_implements_iterator_trait() {
-    let lexer = Lexer::new("  ");
-
-    for token in lexer {
-        assert_eq!(Token::new(Whitespace), token);
-    }
 }

@@ -4,11 +4,12 @@ use crate::cursor::Cursor;
 #[derive(Debug, PartialEq)]
 pub struct Token {
     pub kind: TokenKind,
+    pub len: usize,
 }
 
 impl Token {
-    pub fn new(kind: TokenKind) -> Token {
-        Token { kind }
+    pub fn new(kind: TokenKind, len: usize) -> Token {
+        Token { kind, len }
     }
 }
 
@@ -40,7 +41,7 @@ impl<'a> Lexer<'a> {
 
     fn eat_whitespace(&mut self) -> Token {
         self.cursor.next();
-        Token::new(Whitespace)
+        Token::new(Whitespace, self.cursor.len_consumed())
     }
 }
 

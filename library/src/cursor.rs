@@ -2,12 +2,14 @@ use std::str::Chars;
 
 pub(crate) struct Cursor<'a> {
     chars: Chars<'a>,
+    initial_len: usize,
 }
 
 impl<'a> Cursor<'a> {
     pub(crate) fn new(code: &'a str) -> Cursor {
         Cursor {
             chars: code.chars(),
+            initial_len: code.len(),
         }
     }
 
@@ -23,18 +25,15 @@ impl<'a> Cursor<'a> {
         self.chars.as_str().is_empty()
     }
 
-    pub(crate) fn next(&mut self) {
-        self.chars.next();
+    pub(crate) fn len_consumed(&self) -> usize {
+        self.initial_len - self.chars.as_str().len()
     }
 
     fn chars(&self) -> Chars<'a> {
         self.chars.clone()
     }
 
-    #[allow(dead_code)] // Will eventually be used.
-    fn eat_while(&mut self, mut f: impl FnMut(char) -> bool) {
-        while f(self.first()) && !self.is_eof() {
-            self.next();
-        }
+    pub(crate) fn next(&mut self) {
+        self.chars.next();
     }
 }
