@@ -42,4 +42,8 @@ impl<'a> Cursor<'a> {
             self.next();
         }
     }
+
+    pub(crate) fn next_while_char(&mut self, char: char) {
+        self.next_while(|current| current == char);
+    }
 }

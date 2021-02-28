@@ -1,4 +1,4 @@
-use libastral::lexer::{tokenize, Token, TokenKind::*};
+use libastral::lexer::{NumberKind, Token, TokenKind::*, tokenize};
 
 #[test]
 fn tokenize_empty_input() {
@@ -27,4 +27,26 @@ fn tokenize_some_identifiers() {
     ];
 
     assert_eq!(tokenize("a a'"), expected);
+}
+
+#[test]
+fn tokenize_some_binary_literal() {
+    let expected = vec![
+        Token::new(Number { kind: NumberKind::Binary }, 3),
+        Token::new(Whitespace, 4),
+        Token::new(Number { kind: NumberKind::Binary }, 8),
+    ];
+
+    assert_eq!(tokenize("0b0 0_b1"), expected);
+}
+
+#[test]
+fn tokenize_some_generic_number_literal() {
+    let expected = vec![
+        Token::new(Number { kind: NumberKind::Generic }, 3),
+        Token::new(Whitespace, 4),
+        Token::new(Number { kind: NumberKind::Generic }, 8),
+    ];
+
+    assert_eq!(tokenize("123 0123"), expected);
 }
