@@ -42,5 +42,4 @@ impl<'a> Cursor<'a> {
             self.next();
         }
     }
-
 }
